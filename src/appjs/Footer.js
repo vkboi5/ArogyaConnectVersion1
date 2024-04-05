@@ -5,7 +5,7 @@ import ytlogo from './images/ytlogo.png.png'; // Replace with your actual image 
 import iglogo from './images/instalogo1.png.png'; // Replace with your actual image path
 import fblogo from './images/fblogo1.png.png'; // Replace with your actual image path
 import twlogo from './images/twitter.png.png'; // Replace with your actual image path
-import logo from './images/Arogclogo.png';
+import logo from './images/Arogclogonew.png';
 
 const Footer = () => {
   return (

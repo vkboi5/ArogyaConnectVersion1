@@ -25,7 +25,7 @@ function Layout({ children }) {
       name: "Apply Doctor",
       path: "/apply-doctor",
       icon: "ri-hospital-line",
-    }
+    },
   ];
 
   const doctorMenu = [
@@ -69,76 +69,83 @@ function Layout({ children }) {
     },
   ];
 
-  const menuToBeRendered = user?.isAdmin ? adminMenu : user?.isDoctor ? doctorMenu : userMenu;
+  const menuToBeRendered = user?.isAdmin
+    ? adminMenu
+    : user?.isDoctor
+    ? doctorMenu
+    : userMenu;
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
   return (
-    <div className="main">
-      <div className="d-flex layout">
-        <div className="sidebar">
-          <div className="sidebar-header">
-            <h1 className="logo">SH</h1>
-            <h1 className="role">{role}</h1>
-          </div>
-
-          <div className="menu">
-            {menuToBeRendered.map((menu) => {
-              const isActive = location.pathname === menu.path;
-              return (
-                <div
-                  className={`d-flex menu-item ${
-                    isActive && "active-menu-item"
-                  }`}
-                >
-                  <i className={menu.icon}></i>
-                  {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
-                </div>
-              );
-            })}
-            <div
-              className={`d-flex menu-item `}
-              onClick={() => {
-                localStorage.clear();
-                navigate("/login");
-              }}
-            >
-              <i className="ri-logout-circle-line"></i>
-              {!collapsed && <Link to="/login">Logout</Link>}
-            </div>
-          </div>
+    <>
+      <div className="sidebar">
+        <div className="sidebar-header">
+          <h1 className="logo">SH</h1>
+          <h1 className="role">{role}</h1>
         </div>
 
-        <div className="content">
-          <div className="header">
-            {collapsed ? (
-              <i
-                className="ri-menu-2-fill header-action-icon"
-                onClick={() => setCollapsed(false)}
-              ></i>
-            ) : (
-              <i
-                className="ri-close-fill header-action-icon"
-                onClick={() => setCollapsed(true)}
-              ></i>
-            )}
-
-            <div className="d-flex align-items-center px-4">
-              <Badge
-                count={user?.unseenNotifications.length}
-                onClick={() => navigate("/notifications")}
+        <div className="menu">
+          {menuToBeRendered.map((menu) => {
+            const isActive = location.pathname === menu.path;
+            return (
+              <div
+                className={`d-flex menu-item ${isActive && "active-menu-item"}`}
               >
-                <i className="ri-notification-line header-action-icon px-3"></i>
-              </Badge>
-
-              <Link className="anchor mx-2" to="/profile">
-                {user?.name}
-              </Link>
-            </div>
+                <i className={menu.icon}></i>
+                {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
+              </div>
+            );
+          })}
+          <div
+            className={`d-flex menu-item `}
+            onClick={() => {
+              localStorage.clear();
+              navigate("/login");
+            }}
+          >
+            <i className="ri-logout-circle-line"></i>
+            {!collapsed && <Link to="/login">Logout</Link>}
           </div>
-
-          <div className="body">{children}</div>
         </div>
       </div>
-    </div>
+
+      <div className="content">
+        <div className="header">
+          {collapsed ? (
+            <i
+              className="ri-menu-2-fill header-action-icon"
+              onClick={() => setCollapsed(false)}
+            ></i>
+          ) : (
+            <i
+              className="ri-close-fill header-action-icon"
+              onClick={() => setCollapsed(true)}
+            ></i>
+          )}
+
+          <div className="d-flex align-items-center px-4">
+            <Badge
+              count={user?.unseenNotifications.length}
+              onClick={() => navigate("/notifications")}
+            >
+              <i className="ri-notification-line header-action-icon px-3"></i>
+            </Badge>
+
+            <Link className="anchor mx-2" to="/profile">
+              {user?.name}
+            </Link>
+          </div>
+        </div>
+
+        <div className="body">
+          <div className="welcome-message">
+            <h2>Welcome, {user?.name}!</h2>
+            <p>We're glad to have you here at our hospital.</p>
+            <p>Feel free to explore and manage your appointments.</p>
+          </div>
+          {children}
+        </div>
+      </div>
+    </>
   );
 }
 

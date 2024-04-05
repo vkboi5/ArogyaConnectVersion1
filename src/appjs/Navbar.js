@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './css/Navbar.css';
-import logo from './images/Arogclogo.png'; // make sure the logo path is correct
+import logo from './images/Arogclogonew.png'; // make sure the logo path is correct
 
 const Navbar = () => {
   return (
@@ -16,7 +16,7 @@ const Navbar = () => {
 
       <ul className="navbar-list">
         <li className="navbar-item">
-          <Link to="/register">Home</Link>
+          <Link to="/homepage">Home</Link>
         </li>
         
         <li className="navbar-item">

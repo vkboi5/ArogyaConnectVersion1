@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './css/DoctorManagement.css'; // Make sure to import your CSS file
-import dtlogo from './images/dtlogo.jpg';
+import dtlogo from './images/newlogo.png';
 import Popup from './Popup';
 
 function DoctorManagement() {

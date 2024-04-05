@@ -13,7 +13,7 @@ function Home() {
       dispatch(showLoading())
       const response = await axios.get("/api/user/get-all-approved-doctors", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer" + localStorage.getItem("token"),
         },
       });
       dispatch(hideLoading())
