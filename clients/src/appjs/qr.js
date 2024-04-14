@@ -1,47 +1,58 @@
-import React, { useState } from 'react';
-import { Fab, TextareaAutosize } from '@material-ui/core';
-import { ArrowBack } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
-import {QrReader} from 'react-qr-reader';
+import React, { useState } from "react";
+import { Fab, TextareaAutosize } from "@material-ui/core";
+import { ArrowBack } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { QrReader } from "react-qr-reader";
 
 function QRscanner() {
-  const [qrscan, setQrscan] = useState('No result');
+  const [qrscan, setQrscan] = useState("No result");
 
-  const handleScan = data => {
+  const handleScan = (data) => {
     if (data) {
       setQrscan(data);
     }
   };
 
-  const handleError = err => {
+  const handleError = (err) => {
     console.error(err);
   };
 
-  return (
-    <div>
-      <Link to="/">
-        <Fab style={{ marginRight: 10 }} color="primary">
-          <ArrowBack />
-        </Fab>
-      </Link>
-      <span>QR Scanner</span>
+  const handleResult = (result) => {
+    if (result) {
+      setQrscan(result);
+    }
+  };
 
-      <center>
-        <div style={{ marginTop: 30 }}>
-          <QrReader
-            delay={300}
-            onError={handleError}
-            onScan={handleScan}
-            style={{ height: 240, width: 320 }}
-          />
-        </div>
-      </center>
+  const handleTextAreaChange = (event) => {
+    setQrscan(event.target.value);
+  };
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "40px" }}>
+        <Link to="/">
+          <Fab style={{ marginRight: "10px" }} color="primary">
+            <ArrowBack />
+          </Fab>
+        </Link>
+        <span style={{ fontSize: "24px" }}>QR Scanner</span>
+      </div>
+
+      <div style={{ marginTop: "30px" }}>
+        <QrReader
+          delay={300}
+          onError={handleError}
+          onScan={handleScan}
+          onResult={handleResult} // Add this line
+          style={{ height: "240px", width: "320px" }}
+        />
+      </div>
 
       <TextareaAutosize
-        style={{ fontSize: 18, width: 320, height: 100, marginTop: 100 }}
-        rowsMax={4}
-        defaultValue={qrscan}
+        style={{ fontSize: "18px", width: "80%", minHeight: "100px", marginTop: "50px", resize: "vertical", overflowWrap: "break-word" }}
+        maxRows={4}
         value={qrscan}
+        onChange={handleTextAreaChange}
       />
     </div>
   );
